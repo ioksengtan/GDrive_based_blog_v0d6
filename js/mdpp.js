@@ -475,14 +475,94 @@ function string2html(string_input) {
 }
 
 
-var pattern_keyword = {
-	"tag": RegExp("^!tag[ ]*")
-	
+var dict_mdpp_pattern = {
+	"tag": RegExp("^!tag[ ]*"),
+	//system_cmd    
+    "publish": RegExp("^!publish[ ]*"),
+    "html": RegExp("^@html[ ]*{[ ]*$"),
+    "end": RegExp("^}$"),
+    "u2b": RegExp("^@u2b{[ ]*$"),
+    "flowchart": RegExp("^@flowchart{[ ]*$"),
+
+    "sequence": RegExp("^@sequence{[ ]*$"),
+    "script": RegExp("tag"),
+    "data2div": RegExp("^@data2div{[ ]*$"),
+    "ref": RegExp("^@ref{[ ]*$"),
+    "list": RegExp("^@list{[ ]*$"),
+    "menu": RegExp("^@menu{[ ]*$"),
+    //"ls": RegExp("^@ls{[ ]*$"),
+
+    // 1 line syntax
+    "ls": RegExp("^@ls [a-z,0-9,A-Z]*[ ]*$"),
+    "ls_export": RegExp("^@ls [a-z,0-9,A-Z]*[ ]+>[ ]+[a-z0-9A-Z\_]*$"),
+    "image": RegExp("^@image [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[\\t ]*$"),
+    "image_rotation": RegExp("^@image [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[ ]+[-]*[0-9]+[ ]*$"),
+    "mp3": RegExp("^@mp3 [a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[\\t ]*$"),
+    "plot": RegExp("^@plot ."),
+    "set": RegExp("^@set ."),
+    "print": RegExp("^@print ."),
+    "whos": RegExp("^@whos[ ]*"),
+    "jog": RegExp("^@jog ."),
+    "pdf": RegExp("^@pdf ."),
+
+    "marked": RegExp("^@#."),
+    "list_ref": RegExp("^@list[ ]*:[ ]*[a-z0-9A-Z_\\-\\:\\/\\?\\=\\&\\.]*[\\t ]*$"),
+    "ui_slidebar": RegExp("^@ui_slidebar ."),	
 }
 
+var dict_parser_state = {
+		"idle": 0,
+		"html": 1,		
+};
+var dict_doc_type = {
+        'markdown': 0,
+        'code': 1,
+        'u2b': 2,
+        'flowchart': 3,
+        'sequence': 4,
+        'image': 5,
+        'data2div': 6,
+        'ref': 7,
+        'ls': 8,
+        'list': 9,
+        'plot': 10,
+        'set': 11,
+        'marked': 12,
+        'ui_slidebar': 13,
+        'menu': 14,
+        'print': 15,
+        'whos': 16,
+        'mp3': 17,
+        'jog': 18,
+        'pdf': 19
+};
 //return mdppSet
 function str_mdpp2list_mdpp_object(str_mdpp) {
+	tmp = [];
 	var list_mdpp_object = [];
+	list_mdpp_statement = str_mdpp.split('\n');
+	for( each_mdpp_statement in list_mdpp_statement){		
+		console.log(list_mdpp_statement[each_mdpp_statement]);
+		state = 'markdown';
+		for ( each_pattern in dict_mdpp_pattern) {				
+			if ( dict_mdpp_pattern[each_pattern].test(list_mdpp_statement[each_mdpp_statement])) {
+					console.log(dict_mdpp_pattern[each_pattern]);
+					//tmp_html_content = "";					
+					//var tmp = new StringNode(tmp_content, "html", "");
+					//if (tmp_content != "") {
+					//	mdppSet.push(tmp);
+					//}
+					//tmp_content = "";
+				state = dict_mdpp_pattern[each_pattern];				
+				console.log('state:'+state);
+				break;
+			}
+		}
+		tmp.push(state)
+		//console.log(state);
+		
+	}
+	
 	
 	return list_mdpp_object;
 }
