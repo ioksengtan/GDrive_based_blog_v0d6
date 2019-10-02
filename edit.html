@@ -16,6 +16,7 @@
     <script src="js/amcharts/themes/light.js"></script>
 	<script src="js/flowchart.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<script src="js/codemirror.js"></script>
 	
 	<script src="js/plot_engine.js"></script>
@@ -38,17 +39,25 @@
 </head>
 
 <body>
+<div class="w3-bar w3-light-grey">
+  <a href="#" class="w3-bar-item w3-button">Home</a>  
+  
 
-    <div class="container" id="container">
-        <div class="row">
+            
+                <select id="is_public_id" class="w3-select"  style="width:8%">
+                    <option value=0>Private</option>
+                    <option value=1>Public</option>
 
-            <div class="">
-                title:
-                <input type="text" class="form-control" id="titleInput">
-            </div>
+                </select>
+            
 
-            <div class="" id="folder_selection">
-                <select class="form-control">
+            
+                <select id="is_draft_id" class="w3-select"  style="width:8%">
+                    <option value=0>Publish</option>
+                    <option value=1>Draft</option>
+                </select>
+            
+                <select class="w3-select" id="folder_selection" style="width:15%">
                     <option value=4>recipe</option>
                     <option value=2>computer_science</option>
                     <option value=29>computer_science.algorithm</option>
@@ -69,25 +78,30 @@
                     <option value=37>maker space</option>
                     <option value=38>io-rd.tw</option>
                 </select>
-            </div>
-            <div class="">
-                <select id="is_public_id" class="form-control">
-                    <option value=0>Private</option>
-                    <option value=1>Public</option>
+            
+  
+  <input class="w3-check" type="checkbox" checked="checked">
+<label>Star</label>
 
-                </select>
+
+
+
+  
+  
+</div>
+    <div class="container" id="container">
+	
+        <div class="row">
+
+            <div class="">                
+                <input type="text" class="w3-input w3-border" id="titleInput" placeholder="title">
             </div>
 
-            <div class="">
-                <select id="is_draft_id" class="form-control">
-                    <option value=0>Publish</option>
-                    <option value=1>Draft</option>
-                </select>
-            </div>
+            
 
-            <div class="">
-                small image:
-                <input type="text" class="form-control" id="smallimage">
+
+            <div class="">                
+                <input type="text" class="w3-input" id="smallimage" placeholder="small image">
             </div>
             <div class="">
                 <input id="StarCheckbox" type="checkbox" name="star" value="isStar"> Star
@@ -117,13 +131,7 @@
                 <textarea class="AutoHeight form-control" id="text-input" oninput=this.editor.update() style="width:100%" rows="30">Type **Markdown** here.test
                 </textarea>
             </div>
-            <div class="w3-half" id="preview"> </div>
-            <div class="">
-                <input type="button" class="btn btn-success" value="Update" onclick="SendScore()">
-                <input type="button" class="btn btn-success" value="Delete" onclick="Delete()">
-                <input type="button" class="btn btn-success" value="View" onclick="View()">
-                <div id="feedback"></div>
-            </div>
+            <div class="w3-half" id="preview"> </div>            
 
             <div id="diagram"></div>
         </div>
@@ -137,6 +145,13 @@
         $(document).ready(function() {
             
         });
+	function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
     </script>
 
 </body>
