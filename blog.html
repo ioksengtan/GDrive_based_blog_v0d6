@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+ <head>
+       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+       <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+       <!-- jQuery -->
+       <script type="text/javascript" src="js/jquery-1.9.0.min.js"></script>
+       <!-- jQuery UI-->
+      <link type="text/css" rel="stylesheet" href="css/jquery-ui-1.10.0.custom.css">
+       <script type="text/javascript" src="js/jquery-ui-1.10.0.custom.min.js"></script>
+       <!-- Bootstrap
+       <link type="text/css" rel="stylesheet" href="css/bootstrap.min.css">
+       <script type="text/javascript" src="js/bootstrap.min.js"></script>
+      -->
+       <!-- prettify
+      <link type="text/css" rel="stylesheet" href="css/prettify.css">
+       <script type="text/javascript" src="js/prettify.js"></script>
+       -->
+       <!-- Font -->
+       <script type="text/javascript" src="js/blog.js"></script>
+      <link type="text/css" rel="stylesheet" href="css/font-face.css">
+       <!-- Font Awsome
+       <link type="text/css" rel="stylesheet" href="css/font-awesome.css">
+       -->
+       <!-- Site Universal Style -->
+       <script src="showdown.min.js"></script>
+       <script src="js/markdown.js"></script>
+       <script src = "js/html_preprocessing.js"></script>
+
+       <script src="js/raphael.min.js"></script>
+       <script src="js/flowchart.min.js"></script>
+       <link type="text/css" rel="stylesheet" href="css/blog.css">
+<link type="text/css" rel="stylesheet" href="css/prettify.css">
+<link type="text/css" rel="stylesheet" href="css/admin.css">
+
+       <title>blog.uxapps</title>
+       <script type="text/javascript" src="js/lab-main.js"></script>
+ </head>
+<body>
+       <header>
+       <a id="title" href="index.html">blog.uxapps</a>
+       <div class="links">
+       <a href="" class="links-1"></a>
+       </div>
+       </header>
+
+       <div class="container">
+            <div class="clear-both"></div>
+             <div class='content-wrapper'>
+                   <div id="blog_title"></div>
+                   <div class="login_show"><a href="javascript:edit();">(Edit)</a></div>
+                   <div id="content"></div>
+            </div>
+            <div id="diagram"></div>
+       </div>
+	   <script>
+      
+      $(document).ready(function(){
+			$('.login_show').hide();
+//firebase
+			var config = {
+			apiKey: "AIzaSyAtI63y6oM7PO4p0U2AEMsXrhScPYeC3GA",
+			authDomain: "uxapi-74e8b.firebaseapp.com",
+			databaseURL: "https://uxapi-74e8b.firebaseio.com",
+			projectId: "uxapi-74e8b",
+			storageBucket: "",
+			messagingSenderId: "1051481601400"
+			};
+			firebase.initializeApp(config);
+
+			firebase.auth().onAuthStateChanged(firebaseUser=>{
+				if(firebaseUser){
+						$('.login_show').show();
+
+				}else{
+						$('.login_show').hide();
+				}
+			});
+	
+		//end of firebase
+		});
+    </script>
+	   
+ </body>
+ </html>

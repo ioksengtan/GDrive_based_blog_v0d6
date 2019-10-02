@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
+    
+    <script src="js/command_parser.js"></script>
+    <script src="js/ingredients2recipe_engine.js"></script>
+
+	<script type="text/javascript" src="js/d3.v3.js"></script>
+	<script src="js/amcharts/amcharts.js"></script>
+    <script src="js/amcharts/serial.js"></script>
+    <script src="js/amcharts/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="js/amcharts/plugins/export/export.css" type="text/css" media="all" />
+    <script src="js/amcharts/themes/light.js"></script>
+	<script src="js/flowchart.min.js"></script>
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	<script src="js/codemirror.js"></script>
+	
+	<script src="js/plot_engine.js"></script>
+
+    <script src="showdown.min.js"></script>
+    <script src="js/markdown.js"></script>
+    
+    <script src="js/uxapps_api.js"></script>
+    <script src="js/html_preprocessing.js"></script>
+    <script src="js/variable_engine.js"></script>
+    <script src="js/ui_engine.js"></script>
+    <script src="js/mdpp.js"></script>
+
+    <script src="js/edit.js"></script>
+
+    
+    <!-- custom theme -->
+    <link rel="stylesheet" href="css/mdpp.css">
+	<link rel="stylesheet" href="css/codemirror.css">
+</head>
+
+<body>
+
+    <div class="container" id="container">
+        <div class="row">
+
+            <div class="">
+                title:
+                <input type="text" class="form-control" id="titleInput">
+            </div>
+
+            <div class="" id="folder_selection">
+                <select class="form-control">
+                    <option value=4>recipe</option>
+                    <option value=2>computer_science</option>
+                    <option value=29>computer_science.algorithm</option>
+                    <option value=3>woodwork</option>
+                    <option value=26>woodwork.tool</option>
+                    <option value=22>teaching_plan</option>
+                    <option value=28>uxapps.blog</option>
+                    <option value=24>uxapps.course</option>
+                    <option value=21>uxapps.course.page</option>
+                    <option value=31>HB</option>
+                    <option value=33>electronics</option>
+                    <option value=34>EDA</option>
+                    <option value=25>projects</option>
+                    <option value=23>course</option>
+                    <option value=30>family</option>
+                    <option value=35>ideas</option>
+                    <option value=36>personal</option>
+                    <option value=37>maker space</option>
+                    <option value=38>io-rd.tw</option>
+                </select>
+            </div>
+            <div class="">
+                <select id="is_public_id" class="form-control">
+                    <option value=0>Private</option>
+                    <option value=1>Public</option>
+
+                </select>
+            </div>
+
+            <div class="">
+                <select id="is_draft_id" class="form-control">
+                    <option value=0>Publish</option>
+                    <option value=1>Draft</option>
+                </select>
+            </div>
+
+            <div class="">
+                small image:
+                <input type="text" class="form-control" id="smallimage">
+            </div>
+            <div class="">
+                <input id="StarCheckbox" type="checkbox" name="star" value="isStar"> Star
+                <br>
+            </div>
+            <div class="">
+                <div class=""><a href="http://editor.method.ac/" target="__blank">svg editor</a></div>
+                <div class=""><a href="javascript:show_info('flowchart');">@flowchart</a></div>
+                <div class=""><a href="javascript:show_info('u2b');">@u2b</a></div>
+                <div class=""><a href="javascript:show_info('html');">@html</a></div>
+                <div class=""><a href="javascript:show_info('list');">@list</a></div>
+                </ul>
+            </div>
+            <div class="">resources:
+                <div class=""><a href="http://editor.method.ac/" target="__blank">海鮮炒烏龍:@menu</a></div>
+            </div>
+            <div class="">variables:
+                <div class=""><a href="http://editor.method.ac/" target="__blank">x</a></div>
+            </div>
+            <div class="">
+                <input type="button" class="btn btn-success" value="Update" onclick="SendScore()">
+                <input type="button" class="btn btn-success" value="Delete" onclick="Delete()">
+                <input type="button" class="btn btn-success" value="View" onclick="View()">
+
+            </div>
+            <div class="w3-half" id="title">
+                <textarea class="AutoHeight form-control" id="text-input" oninput=this.editor.update() style="width:100%" rows="30">Type **Markdown** here.test
+                </textarea>
+            </div>
+            <div class="w3-half" id="preview"> </div>
+            <div class="">
+                <input type="button" class="btn btn-success" value="Update" onclick="SendScore()">
+                <input type="button" class="btn btn-success" value="Delete" onclick="Delete()">
+                <input type="button" class="btn btn-success" value="View" onclick="View()">
+                <div id="feedback"></div>
+            </div>
+
+            <div id="diagram"></div>
+        </div>
+    </div>
+
+    <script>
+        var filename;
+        //var socket = io.connect();
+        var current_dir = '';
+        var uid;
+        $(document).ready(function() {
+            
+        });
+    </script>
+
+</body>
+
+</html>
