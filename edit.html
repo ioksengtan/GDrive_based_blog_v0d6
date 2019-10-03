@@ -80,7 +80,8 @@
                 </select>
             
   
-  <input class="w3-check" type="checkbox" checked="checked">
+  
+  <input id="StarCheckbox" class="w3-check" type="checkbox" name="star" value="isStar">
 <label>Star</label>
 
 
@@ -103,10 +104,9 @@
             <div class="">                
                 <input type="text" class="w3-input" id="smallimage" placeholder="small image">
             </div>
-            <div class="">
-                <input id="StarCheckbox" type="checkbox" name="star" value="isStar"> Star
-                <br>
-            </div>
+			
+			<div contenteditable="true" id="divEditContent"></div>
+            
             <div class="">
                 <div class=""><a href="http://editor.method.ac/" target="__blank">svg editor</a></div>
                 <div class=""><a href="javascript:show_info('flowchart');">@flowchart</a></div>

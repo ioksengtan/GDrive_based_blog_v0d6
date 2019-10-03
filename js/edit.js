@@ -4,7 +4,12 @@ var logout = function() {
     firebase.auth().signOut();
 }
 
-
+function keyPressEvent() {
+    switch ("Netscape" == navigator.appname ? event.which : event.keyCode) {
+        case 13:
+            //CreateNewRow()
+    }
+}
 
 $(document).ready(function(e) {
     //firebase
@@ -39,6 +44,13 @@ $(document).ready(function(e) {
 
 			
 	})
+	
+	let ee = document.getElementById("divEditContent");
+    ee.addEventListener("keypress", keyPressEvent), 
+		ee.addEventListener("paste", async ee => {
+        ee.preventDefault(), getClipboardContents(0)
+    })
+	
     //end of firebase
     $('#text').focus(function() {
         $('#text').val("");
@@ -159,6 +171,64 @@ function Delete() {
             $(location).attr('href', 'admin.html');
         });
 
+}
+async function getClipboardContents(e) {
+    try {
+        for (var t = 0; t < event.clipboardData.items.length; t++) {
+            var n = event.clipboardData.items[t];
+            if (-1 != n.type.indexOf("image")) {
+                ConvertImgToBase64(await n.getAsFile()).then(t => {
+                    post_to_imgur(e, "https://api.imgur.com/3/image", t)
+                })
+            } else if (-1 != n.type.indexOf("plain")) {
+                const t = await event.clipboardData.getData("Text");
+                document.getElementById("divEditContent").children[e].children[1].innerHTML = t
+            }
+        }
+    } catch (e) {
+        console.error(e, e.message)
+    }
+}
+
+function post_to_imgur(e, t, n) {
+    //let i = $("#fun6_content").val();
+	let i = "39fbb765cfdf9d54396909e5a934dced2b7e73ae"
+    i && "" !== i ? $.ajax({
+        type: "POST",
+        url: t,
+        headers: {
+            Authorization: "Bearer " + i
+        },
+        mimeType: "multipart/form-data",
+        data: {
+            image: n.split(",")[1]
+        },
+        form: {
+            image: n,
+            type: "base64"
+        },
+        success: function(t) {
+			console.log(JSON.parse(t));
+            let n = document.getElementById("divEditContent"),
+                i = JSON.parse(t);
+            n.innerHTML = i.data.link, editContent(n)
+        },
+        error: function(e) {
+            console.log(e)
+        }
+    }) : alert("Access token value can't br empty")
+}
+
+
+function ConvertImgToBase64(e) {
+    return new Promise((t, n) => {
+        let i = new FileReader;
+        i.onload = (() => {
+            t(i.result)
+        }), i.onerror = (() => {
+            n(i.error)
+        }), i.readAsDataURL(e)
+    })
 }
 
 function View() {
