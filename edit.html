@@ -4,26 +4,26 @@
 <head>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/live/3.1/firebase.js"></script>
-    
+
     <script src="js/command_parser.js"></script>
     <script src="js/ingredients2recipe_engine.js"></script>
 
-	<script type="text/javascript" src="js/d3.v3.js"></script>
-	<script src="js/amcharts/amcharts.js"></script>
+    <script type="text/javascript" src="js/d3.v3.js"></script>
+    <script src="js/amcharts/amcharts.js"></script>
     <script src="js/amcharts/serial.js"></script>
     <script src="js/amcharts/plugins/export/export.min.js"></script>
     <link rel="stylesheet" href="js/amcharts/plugins/export/export.css" type="text/css" media="all" />
     <script src="js/amcharts/themes/light.js"></script>
-	<script src="js/flowchart.min.js"></script>
+    <script src="js/flowchart.min.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<script src="js/codemirror.js"></script>
-	
-	<script src="js/plot_engine.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <script src="js/codemirror.js"></script>
+
+    <script src="js/plot_engine.js"></script>
 
     <script src="showdown.min.js"></script>
     <script src="js/markdown.js"></script>
-    
+
     <script src="js/uxapps_api.js"></script>
     <script src="js/html_preprocessing.js"></script>
     <script src="js/variable_engine.js"></script>
@@ -32,81 +32,66 @@
 
     <script src="js/edit.js"></script>
 
-    
     <!-- custom theme -->
     <link rel="stylesheet" href="css/mdpp.css">
-	<link rel="stylesheet" href="css/codemirror.css">
+    <link rel="stylesheet" href="css/codemirror.css">
 </head>
 
 <body>
-<div class="w3-bar w3-light-grey">
-  <a href="#" class="w3-bar-item w3-button">Home</a>  
-  
+    <div class="w3-bar w3-light-grey">
+        <a href="#" class="w3-bar-item w3-button">Home</a>
 
-            
-                <select id="is_public_id" class="w3-select"  style="width:8%">
-                    <option value=0>Private</option>
-                    <option value=1>Public</option>
+        <select id="is_public_id" class="w3-select" style="width:8%">
+            <option value=0>Private</option>
+            <option value=1>Public</option>
 
-                </select>
-            
+        </select>
 
-            
-                <select id="is_draft_id" class="w3-select"  style="width:8%">
-                    <option value=0>Publish</option>
-                    <option value=1>Draft</option>
-                </select>
-            
-                <select class="w3-select" id="folder_selection" style="width:15%">
-                    <option value=4>recipe</option>
-                    <option value=2>computer_science</option>
-                    <option value=29>computer_science.algorithm</option>
-                    <option value=3>woodwork</option>
-                    <option value=26>woodwork.tool</option>
-                    <option value=22>teaching_plan</option>
-                    <option value=28>uxapps.blog</option>
-                    <option value=24>uxapps.course</option>
-                    <option value=21>uxapps.course.page</option>
-                    <option value=31>HB</option>
-                    <option value=33>electronics</option>
-                    <option value=34>EDA</option>
-                    <option value=25>projects</option>
-                    <option value=23>course</option>
-                    <option value=30>family</option>
-                    <option value=35>ideas</option>
-                    <option value=36>personal</option>
-                    <option value=37>maker space</option>
-                    <option value=38>io-rd.tw</option>
-                </select>
-            
-  
-  
-  <input id="StarCheckbox" class="w3-check" type="checkbox" name="star" value="isStar">
-<label>Star</label>
+        <select id="is_draft_id" class="w3-select" style="width:8%">
+            <option value=0>Publish</option>
+            <option value=1>Draft</option>
+        </select>
 
+        <select class="w3-select" id="folder_selection" style="width:15%">
+            <option value=4>recipe</option>
+            <option value=2>computer_science</option>
+            <option value=29>computer_science.algorithm</option>
+            <option value=3>woodwork</option>
+            <option value=26>woodwork.tool</option>
+            <option value=22>teaching_plan</option>
+            <option value=28>uxapps.blog</option>
+            <option value=24>uxapps.course</option>
+            <option value=21>uxapps.course.page</option>
+            <option value=31>HB</option>
+            <option value=33>electronics</option>
+            <option value=34>EDA</option>
+            <option value=25>projects</option>
+            <option value=23>course</option>
+            <option value=30>family</option>
+            <option value=35>ideas</option>
+            <option value=36>personal</option>
+            <option value=37>maker space</option>
+            <option value=38>io-rd.tw</option>
+        </select>
 
+        <input id="StarCheckbox" class="w3-check" type="checkbox" name="star" value="isStar">
+        <label>Star</label>
 
-
-  
-  
-</div>
+    </div>
     <div class="container" id="container">
-	
+
         <div class="row">
 
-            <div class="">                
+            <div class="">
                 <input type="text" class="w3-input w3-border" id="titleInput" placeholder="title">
             </div>
 
-            
-
-
-            <div class="">                
+            <div class="">
                 <input type="text" class="w3-input" id="smallimage" placeholder="small image">
             </div>
-			
-			<div contenteditable="true" id="divEditContent"></div>
-            
+
+            <div contenteditable="true" id="divEditContent"></div>
+
             <div class="">
                 <div class=""><a href="http://editor.method.ac/" target="__blank">svg editor</a></div>
                 <div class=""><a href="javascript:show_info('flowchart');">@flowchart</a></div>
@@ -131,10 +116,19 @@
                 <textarea class="AutoHeight form-control" id="text-input" oninput=this.editor.update() style="width:100%" rows="30">Type **Markdown** here.test
                 </textarea>
             </div>
-            <div class="w3-half" id="preview"> </div>            
+            <div class="w3-half" id="preview"> </div>
 
             <div id="diagram"></div>
         </div>
+    </div>
+
+    <div id="release_note" class="w3-container" style = "display:none">
+		<h1>Release Notes on edit.html v0d5
+        <ol>
+            <li> use CodeMirror as input interface.</li>
+			<li> support Ctrl+V to paste image in clipboard, using Imgur API. </li>
+			<li> Use w3 css framework to get responsive website. </li>
+        </ol>
     </div>
 
     <script>
@@ -143,15 +137,16 @@
         var current_dir = '';
         var uid;
         $(document).ready(function() {
-            
-        });
-	function w3_open() {
-  document.getElementById("mySidebar").style.display = "block";
-}
 
-function w3_close() {
-  document.getElementById("mySidebar").style.display = "none";
-}
+        });
+
+        function w3_open() {
+            document.getElementById("mySidebar").style.display = "block";
+        }
+
+        function w3_close() {
+            document.getElementById("mySidebar").style.display = "none";
+        }
     </script>
 
 </body>

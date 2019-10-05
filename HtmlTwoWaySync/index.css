@@ -1,0 +1,79 @@
+.divButtonArea {
+  width: 82%;
+  margin: 10px;
+  border: 1px solid #000;
+}
+.divButtonArea > div {
+  border: 1px solid #000;
+  margin: 1px;
+  padding: 10px;
+}
+.divEditRow {
+  display: flex;
+  position: relative;
+}
+
+.divArea {
+  width: 40%;
+  float: left;
+  height: 500px;
+  border: 1px solid #000;
+  overflow: auto;
+  margin: 10px;
+}
+
+.divNewPreview {
+  border: 1px solid #000;
+  min-height: 40px;
+  max-height: 60px;
+  overflow: auto;
+  margin: 1px;
+  padding: 1px;
+  word-break: break-all;
+}
+
+.spEditNo {
+  border: 1px solid #000;
+  float: left;
+  min-height: 40px;
+  width: 5%;
+  margin: 1px;
+  text-align: center;
+  vertical-align: middle;
+  display: table-cell;
+}
+.divNewEdit {
+  float: left;
+  border: 1px solid #000;
+  min-height: 40px;
+  overflow: auto;
+  margin: 1px;
+  width: 94%;
+  padding: 1px;
+  word-break: break-all;
+}
+
+.txtArea {
+  max-width: 99%;
+  min-width: 99%;
+  border: 1 solid;
+  height: 100%;
+}
+
+.hight-light {
+  color: rgb(255, 0, 0);
+  font-weight: bold;
+}
+
+.img-sizectrl {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  width: 20px;
+  height: 20px;
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-drag: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+}

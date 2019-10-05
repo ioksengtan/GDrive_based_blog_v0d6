@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Html two way sync</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+  </head>
+  <body>
+    <img id="imgdd" style="display:none" />
+    <div class="divButtonArea">
+      <div>
+        <span
+          >設定指定id的<span class="hight-light"> editable div</span>內容
+          :</span
+        ><br /><br />
+        Index: <input type="text" id="fun1_no" style="width: 5%" /> Content:
+        <input type="text" id="fun1_content" style="width: 30%" />
+        <button id="btnFun1">click</button>
+      </div>
+      <div>
+        <span
+          >一次設定全部(多行)的<span class="hight-light"> editable div</span>
+          :</span
+        ><br /><br />
+        Content: <input type="text" id="fun2_content" style="width: 30%" />
+        <button id="btnFun2">click</button>
+      </div>
+      <div>
+        <span
+          >一次設定全部的<span class="hight-light"> preview div</span> :</span
+        ><br /><br />
+        Content: <input type="text" id="fun3_content" style="width: 30%" />
+        <button id="btnFun3">click</button>
+      </div>
+      <div>
+        <span
+          >取得指定id的<span class="hight-light"> editable div </span
+          >內容，回傳string</span
+        ><br /><br />
+        Index: <input type="text" id="fun4_no" style="width: 5%" />
+        <button id="btnFun4">click</button>
+        <div id="fun4_RtnArea" style="display: none">
+          <div>Return:</div>
+          <div id="fun4_content" style="color: green"></div>
+        </div>
+      </div>
+
+      <div>
+        <span
+          >取得<span class="hight-light"> editable div </span>全部的內容 :</span
+        ><button id="btnFun5">click</button>
+
+        <div id="fun5_RtnArea" style="display: none">
+          <div>Return:</div>
+          <div id="fun5_content" style="color: green"></div>
+        </div>
+      </div>
+
+      <div>
+        <span
+          >imgur - 上傳圖片的 <span class="hight-light">Client ID</span> :</span
+        ><br /><br />
+        Client ID :
+        <input type="text" id="fun6_clientId" style="width: 20%" />
+      </div>
+    </div>
+    <div>
+      <div id="divEditContent" class="divArea">
+        <div class="divEditRow">
+          <span class="spEditNo">1</span>
+          <div class="divNewEdit" contenteditable="true"></div>
+          <img src="maximise.png" class="img-sizectrl" />
+        </div>
+      </div>
+      <div id="divPreview" class="divArea">
+        <div class="divNewPreview"></div>
+      </div>
+    </div>
+  </body>
+</html>

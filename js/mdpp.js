@@ -542,7 +542,7 @@ function str_mdpp2list_mdpp_object(str_mdpp) {
 	var list_mdpp_object = [];
 	list_mdpp_statement = str_mdpp.split('\n');
 	for( each_mdpp_statement in list_mdpp_statement){		
-		console.log(list_mdpp_statement[each_mdpp_statement]);
+		//console.log(list_mdpp_statement[each_mdpp_statement]);
 		state = 'markdown';
 		for ( each_pattern in dict_mdpp_pattern) {				
 			if ( dict_mdpp_pattern[each_pattern].test(list_mdpp_statement[each_mdpp_statement])) {
@@ -553,10 +553,21 @@ function str_mdpp2list_mdpp_object(str_mdpp) {
 					//	mdppSet.push(tmp);
 					//}
 					//tmp_content = "";
+					/*
+					tmp_u2b_content = "";
+					flag_u2b = true;
+					var tmp = new StringNode(tmp_content, "u2b", "");
+					if (tmp_content != "") {
+						mdppSet.push(tmp);
+					}
+					tmp_content = "";					
+					*/
 				state = dict_mdpp_pattern[each_pattern];				
 				console.log('state:'+state);
 				break;
 			}
+			
+			
 		}
 		tmp.push(state)
 		//console.log(state);
