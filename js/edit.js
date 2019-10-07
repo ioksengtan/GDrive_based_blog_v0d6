@@ -12,6 +12,7 @@ function keyPressEvent() {
 }
 
 $(document).ready(function(e) {
+	mdpp_manager = new mdppManager();
     //firebase
     var config = {
         apiKey: "AIzaSyAtI63y6oM7PO4p0U2AEMsXrhScPYeC3GA",
@@ -33,6 +34,9 @@ $(document).ready(function(e) {
             window.location = "login.html";
         }
     });
+	//end of firebase
+	
+	
     editor = CodeMirror.fromTextArea(document.getElementById("text-input"), {
         lineNumbers: true,
     });
@@ -52,7 +56,7 @@ $(document).ready(function(e) {
             ee.preventDefault(), getClipboardContents(0)
         })
 
-    //end of firebase
+    
     $('#text').focus(function() {
         $('#text').val("");
     });
@@ -128,8 +132,8 @@ $(document).ready(function(e) {
                     */
                     doc = editor.getDoc();
                     doc.setValue(content);
-                    $('#text-input').val(content);
-                    $('#text-input')[0].editor.update()
+                   // $('#text-input').val(content);
+                   // $('#text-input')[0].editor.update()
                     $('#titleInput').val(title);
                     $('img').width('70%');
                 });
@@ -139,12 +143,12 @@ $(document).ready(function(e) {
     document.getElementById('text-input').focus();
 
 });
-
 function gui_content_update() {
     preview.innerHTML = "";
     content = doc.getValue();
-    [ListMdppObject, ListDiv] = mdpp2ListDiv(content);
-
+	
+    [ListMdppObject, ListDiv] = mdpp_manager.mdpp2ListDiv(content);
+	/*
     ListDiv2StaticDisplay(ListMdppObject, ListDiv, $('#preview'));
     for (var i = 0; i < ListMdppObject.length; i++) {
         DynamicDisplay(ListMdppObject, ListDiv, i);
@@ -154,6 +158,7 @@ function gui_content_update() {
     if (preview_height < 500) preview_height = 500;
 
     $('.AutoHeight').height(preview_height);
+	*/
     $('img').width('70%');
 }
 
@@ -397,7 +402,8 @@ function Editor(input, preview) {
     this.update = function() {
         preview.innerHTML = "";
         content = input.value;
-        [ListMdppObject, ListDiv] = mdpp2ListDiv(content);
+        /*
+		[ListMdppObject, ListDiv] = mdpp2ListDiv(content);
 
         ListDiv2StaticDisplay(ListMdppObject, ListDiv, $('#preview'));
         for (var i = 0; i < ListMdppObject.length; i++) {
@@ -409,6 +415,7 @@ function Editor(input, preview) {
 
         $('.AutoHeight').height(preview_height);
         $('img').width('70%');
+		*/
     };
     input.editor = this;
     //	$("#text-input").height($("#preview").height());
