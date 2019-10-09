@@ -9,9 +9,7 @@ mdppManager.prototype.init = function(){
 	this.list_mdpp_cmd_reg = [];
 	this.variable_manager = new VariableManager; 
 	this.dict_md_ext_cmd = {
-		"html_block_start": {
-			"pattern":RegExp("^@html[ ]*{[ ]*$"),
-		},
+
 		"end": {
 			"pattern":RegExp("^}$"),
 		},
@@ -20,9 +18,21 @@ mdppManager.prototype.init = function(){
 		}
 		
 	};
+	this.dict_md_ext_block_start_cmd_pattern = {
+		"html": {
+			"pattern":RegExp("^@html[ ]*{[ ]*$"),
+		},
+		"svg": {
+			"pattern":RegExp("^@svg[ ]*{[ ]*$"),
+		},		
+	};
 	this.dict_mdpp_states = {
 		"idle":0,
-		"block_html":1,
+		"block":1,
+	};
+	this.dict_mdpp_block_states = {
+		"block_html":0,
+		"block_svg":1
 	}
 
 }
@@ -48,34 +58,46 @@ mdppManager.prototype.mdpp2ListDiv = function (input_content) {
     return [ListMdppObject, ListDiv];
 
 }
-
-mdppManager.prototype.exec_mdpp_cmd = function(mdpp_input){
+mdppManager.prototype.get_mdpp_type(mdpp_cmd){
+	
+	return str_mdpp_type;
+}
+mdppManager.prototype.is_md_ext_block(mdpp_cmd){
+	for(md_ext_block_start_cmd_pattern in this.dict_md_ext_block_start_cmd_pattern){
+		if(this.dict_md_ext_block_start_cmd_pattern[md_ext_block_start_cmd_pattern].pattern.test(mdpp_cmd)){		
+			return [true, md_ext_block_start_cmd_pattern];
+		}
+	}
+	return [false, ''];
+}
+mdppManager.prototype.exec_mdpp_cmd = function(mdpp_cmd){
 	//console.log('exec_mdpp_cmd:'+next_mdpp_class_id+','+next_mdpp_type_id+','+mdpp_input);
 	console.log('curr_state:'+this.curr_mdpp_state_id);
-	console.log('exec_mdpp_cmd:'+mdpp_input);	
+	console.log('exec_mdpp_cmd:'+mdpp_cmd);	
 	
 	if (this.curr_mdpp_state_id == this.dict_mdpp_states['idle']){		
-		
-		if(this.dict_md_ext_cmd["html_block_start"].pattern.test(mdpp_input)){	
-			this.curr_mdpp_state_id = this.dict_mdpp_states["block_html"];
+		[is_md_ext_block, md_ext_block_type] = this.is_md_ext_block(mdpp_cmd); 
+		if(is_md_ext_block){
+			this.curr_mdpp_state_id = this.dict_mdpp_states["block"];
 		}else{
+			str_mdpp_cmd_type = this.get_md_type(mdpp_cmd);
 			this.list_mdpp_cmd_reg.push(
 				{
-					'type':'md',
-					'cmd':mdpp_input
+					'type':mdpp_cmd_type,
+					'cmd':mdpp_cmd
 				}
 			);
 		}
 		
 
-	}else if(this.curr_mdpp_state_id == this.dict_mdpp_states['block_html']){
-		if(this.dict_md_ext_cmd["end"].pattern.test(mdpp_input)){	
+	}else if(this.curr_mdpp_state_id == this.dict_mdpp_states['block']){
+		if(this.dict_md_ext_cmd["end"].pattern.test(mdpp_cmd)){	
 				this.curr_mdpp_state_id = this.dict_mdpp_states["idle"];			
 		}else{
 			this.list_mdpp_cmd_reg.push(
 				{
 					'type':'html',
-					'cmd':mdpp_input
+					'cmd':mdpp_cmd
 				}
 			);			
 		}
