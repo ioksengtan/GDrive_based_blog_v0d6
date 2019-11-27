@@ -4,15 +4,9 @@ var logout = function() {
     firebase.auth().signOut();
 }
 
-function keyPressEvent() {
-    switch ("Netscape" == navigator.appname ? event.which : event.keyCode) {
-        case 13:
-            //CreateNewRow()
-    }
-}
+
 
 $(document).ready(function(e) {
-	mdpp_manager = new mdppManager();
     //firebase
     var config = {
         apiKey: "AIzaSyAtI63y6oM7PO4p0U2AEMsXrhScPYeC3GA",
@@ -34,29 +28,18 @@ $(document).ready(function(e) {
             window.location = "login.html";
         }
     });
-	//end of firebase
-	
-	
-    editor = CodeMirror.fromTextArea(document.getElementById("text-input"), {
-        lineNumbers: true,
-    });
-    editor.on("change", function(cm, change) {
-        doc = editor.getDoc();
-        gui_content_update();
-
-    })
-    editor.on("paste", async ee => {        
-        getClipboardContents(0);
-    })
-	editor.setSize("100%","100%");
-
-    let ee = document.getElementById("divEditContent");
-    ee.addEventListener("keypress", keyPressEvent),
-        ee.addEventListener("paste", async ee => {
-            ee.preventDefault(), getClipboardContents(0)
-        })
+	  editor = CodeMirror.fromTextArea(document.getElementById("text-input"), {
+		lineNumbers: true,
+	  });
+	  editor.on("change", function(cm, change) {
+			doc = editor.getDoc();
+			gui_content_update();
 
     
+
+			
+	})
+    //end of firebase
     $('#text').focus(function() {
         $('#text').val("");
     });
@@ -85,81 +68,84 @@ $(document).ready(function(e) {
     converter.setOption('tables', true);
     converter.setOption('tasklists', true);
 
+
     new Editor($$("text-input"), $$("preview"));
 
     $('#diagram').hide()
+	
+	if (window.location.search != ""){
+		var text_argument_set = window.location.search.split("?")[1].split('&');
+		var numArguments = text_argument_set.length;
+		arg_set = {};
+		text_argument_set.forEach(item => {
+			arg_set[item.split('=')[0]] = parseInt(item.split('=')[1]);
+			if (arg_set["FileID"]) currFileID = arg_set["FileID"];
+			if (arg_set["FolderID"]) currFolderID = arg_set["FolderID"];
+			//currFileID = window.location.search.split("?")[1].split('&')[0].split("=")[1];
+			//currFolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
 
-    if (window.location.search != "") {
-        var text_argument_set = window.location.search.split("?")[1].split('&');
-        var numArguments = text_argument_set.length;
-        arg_set = {};
-        text_argument_set.forEach(item => {
-            arg_set[item.split('=')[0]] = parseInt(item.split('=')[1]);
-            if (arg_set["FileID"]) currFileID = arg_set["FileID"];
-            if (arg_set["FolderID"]) currFolderID = arg_set["FolderID"];
-            //currFileID = window.location.search.split("?")[1].split('&')[0].split("=")[1];
-            //currFolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
 
-            console.log(currFolderID);
-            $('#folder_selection').val(currFolderID);
-            //console.log(currFileID);
-            $.get(appBlogs,
+	console.log(currFolderID);
+    $('#folder_selection').val(currFolderID);
+    //console.log(currFileID);
+    $.get(appBlogs,
 
-                {
-                    FileID: currFileID,
-                    "command": "read"
-                },
-                function(data) {
-                    console.log("the result is :" + data);
-                    title = data.split('$$')[0];
-                    content = data.split('$$')[1];
-                    $('#is_draft_id').val(data.split('$$')[2]);
-                    $('#is_public_id').val(data.split('$$')[3]);
-                    folderID = parseInt(data.split('$$')[4]);
-                    $('#StarCheckbox').prop('checked', parseInt(data.split('$$')[5]));
-                    $('#smallimage').val(data.split('$$')[6]);
-                    $('#folder_selection select').val(folderID);
-                    /*
-                    var mode = content.pop();
-                    if(mode=="777"){
-                      $('#is_publicInput').attr('checked', true);
-                    }else if (mode == "000"){
-                      $('#is_publicInput').attr('checked', false);
-                    }
-                    content.shift();
+        {
+            FileID: currFileID,
+            "command": "read"
+        },
+        function(data) {
+            console.log("the result is :" + data);
+            title = data.split('$$')[0];
+            content = data.split('$$')[1];
+            $('#is_draft_id').val(data.split('$$')[2]);
+            $('#is_public_id').val(data.split('$$')[3]);
+            folderID = parseInt(data.split('$$')[4]);
+            $('#StarCheckbox').prop('checked', parseInt(data.split('$$')[5]));
+            $('#smallimage').val(data.split('$$')[6]);
+            $('#folder_selection select').val(folderID);
+            /*
+            var mode = content.pop();
+            if(mode=="777"){
+              $('#is_publicInput').attr('checked', true);
+            }else if (mode == "000"){
+              $('#is_publicInput').attr('checked', false);
+            }
+            content.shift();
 
-                    $('#text-input').val(content.join());
-                    */
-                    doc = editor.getDoc();
-                    doc.setValue(content);
-                   // $('#text-input').val(content);
-                   // $('#text-input')[0].editor.update()
-                    $('#titleInput').val(title);
-                    $('img').width('70%');
-                });
-        })
-    }
+            $('#text-input').val(content.join());
+            */
+			doc = editor.getDoc();
+			doc.setValue(content);
+            $('#text-input').val(content);
+            $('#text-input')[0].editor.update()
+            $('#titleInput').val(title);
+            $('img').width('70%');
+        });			
+		})		
+	}
+    
+
 
     document.getElementById('text-input').focus();
 
 });
-function gui_content_update() {
-    preview.innerHTML = "";
-    content = doc.getValue();
-	
-    [ListMdppObject, ListDiv] = mdpp_manager.mdpp2ListDiv(content);
-	/*
-    ListDiv2StaticDisplay(ListMdppObject, ListDiv, $('#preview'));
-    for (var i = 0; i < ListMdppObject.length; i++) {
-        DynamicDisplay(ListMdppObject, ListDiv, i);
-    }
-    //$('#preview').html(html_content);
-    var preview_height = $('#preview').height();
-    if (preview_height < 500) preview_height = 500;
 
-    $('.AutoHeight').height(preview_height);
-	*/
-    $('img').width('70%');
+function gui_content_update(){
+			preview.innerHTML = "";
+			content = doc.getValue();
+			[ListMdppObject, ListDiv] = mdpp2ListDiv(content);
+
+			ListDiv2StaticDisplay(ListMdppObject, ListDiv, $('#preview'));
+			for (var i = 0; i < ListMdppObject.length; i++) {
+				DynamicDisplay(ListMdppObject, ListDiv, i);
+			}
+			//$('#preview').html(html_content);
+			var preview_height = $('#preview').height();
+			if (preview_height < 500) preview_height = 500;
+
+			$('.AutoHeight').height(preview_height);
+			$('img').width('70%');
 }
 
 function Delete() {
@@ -174,156 +160,6 @@ function Delete() {
         });
 
 }
-async function getClipboardContents(idx) {
-    try {
-        for (var i = 0; i < event.clipboardData.items.length; i++) {
-            var item = event.clipboardData.items[i];
-            if (item.type.indexOf("image") != -1) {
-                const blob = await item.getAsFile();
-
-                ConvertImgToBase64(blob).then(data => {
-                    post_to_imgur(idx, "https://api.imgur.com/3/image", data);
-                });
-            } else if (item.type.indexOf("plain") != -1) {
-                // ignore not images
-                const pasteString = await event.clipboardData.getData("Text");
-
-                //let objDivEdit = document.getElementById("divEditContent");
-                //objDivEdit.children[idx].children[1].innerHTML = pasteString;
-            }
-        }
-    } catch (e) {
-        console.error(e, e.message);
-    }
-}
-
-function post_to_imgur(idx, path, imgData) {
-    //let token = $("#fun6_clientId").val();
-    let client_id = "5c4294468820af1";
-    let token = client_id;
-    if (token && token !== "") {
-        $.ajax({
-            type: "POST",
-            url: path,
-            headers: {
-                Authorization: "Client-ID " + token //放置你剛剛申請的Client-ID
-                    //Authorization: "Bearer " + token
-            },
-            mimeType: "multipart/form-data",
-            data: {
-                image: imgData.split(",")[1]
-            },
-            form: {
-                image: imgData,
-                type: "base64"
-            },
-            success: function(data) {
-                let objEdit = document.getElementById("divEditContent")
-                let jsonData = JSON.parse(data);
-                objEdit.innerHTML = jsonData.data.link;
-                //editContent(objEdit);
-                console.log(jsonData.data.link);
-				cursor = doc.getCursor();
-                editor.replaceRange("![]("+jsonData.data.link+")", cursor)
-            },
-            error: function(data) {
-                let result = JSON.parse(data.responseText);
-                alert(result.data.error);
-            }
-        });
-    } else {
-        alert("Client ID can't be empty");
-    }
-}
-
-/*
-function post_to_imgur(e, t, n) {
-    //let i = $("#fun6_content").val();
-	let i = "39fbb765cfdf9d54396909e5a934dced2b7e73ae"
-    i && "" !== i ? $.ajax({
-        type: "POST",
-        url: t,
-        headers: {
-            Authorization: "Bearer " + i
-        },
-        mimeType: "multipart/form-data",
-        data: {
-            image: n.split(",")[1]
-        },
-        form: {
-            image: n,
-            type: "base64"
-        },
-        success: function(t) {
-			console.log(JSON.parse(t));
-            let n = document.getElementById("divEditContent"),
-                i = JSON.parse(t);
-            n.innerHTML = i.data.link, editContent(n)
-        },
-        error: function(e) {
-            console.log(e)
-        }
-    }) : alert("Access token value can't br empty")
-}
-
-function post_to_imgur(idx, path, imgData) {
-//  let token = $("#fun6_content").val();
-//  let i = "39fbb765cfdf9d54396909e5a934dced2b7e73ae"
-  let client_id = "5c4294468820af1"
-  token = client_id;
-  if (token && token !== "") {
-    $.ajax({
-      type: "POST",
-      url: path,
-      headers: {
-        Authorization: "Bearer " + token
-      },
-      mimeType: "multipart/form-data",
-      data: { image: imgData.split(",")[1] },
-      form: {
-        image: imgData,
-        type: "base64"
-      },
-      success: function(data) {
-        let objEdit = document.getElementById("divEditContent");
-        let jsonData = JSON.parse(data);
-        objEdit.innerHTML = jsonData.data.link;
-        //editContent(objEdit);
-      },
-      error: function(data) {
-        console.log(data);
-      }
-    });
-  } else {
-    alert("Access token value can't br empty");
-  }
-}
-*/
-function ConvertImgToBase64(file) {
-    var result = new Promise((resolve, reject) => {
-        let reader = new FileReader();
-        reader.onload = () => {
-            resolve(reader.result);
-        };
-        reader.onerror = () => {
-            reject(reader.error);
-        };
-        reader.readAsDataURL(file);
-    });
-    return result;
-}
-/*
-function ConvertImgToBase64(e) {
-    return new Promise((t, n) => {
-        let i = new FileReader;
-        i.onload = (() => {
-            t(i.result)
-        }), i.onerror = (() => {
-            n(i.error)
-        }), i.readAsDataURL(e)
-    })
-}
-*/
 
 function View() {
     var search = window.location.search;
@@ -402,8 +238,7 @@ function Editor(input, preview) {
     this.update = function() {
         preview.innerHTML = "";
         content = input.value;
-        /*
-		[ListMdppObject, ListDiv] = mdpp2ListDiv(content);
+        [ListMdppObject, ListDiv] = mdpp2ListDiv(content);
 
         ListDiv2StaticDisplay(ListMdppObject, ListDiv, $('#preview'));
         for (var i = 0; i < ListMdppObject.length; i++) {
@@ -415,7 +250,6 @@ function Editor(input, preview) {
 
         $('.AutoHeight').height(preview_height);
         $('img').width('70%');
-		*/
     };
     input.editor = this;
     //	$("#text-input").height($("#preview").height());
