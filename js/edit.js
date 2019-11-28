@@ -28,7 +28,9 @@ $(document).ready(function(e) {
     });
     editor = CodeMirror.fromTextArea(document.getElementById("text-input"), {
         lineNumbers: true,
+		lineWrapping: true
     });
+	editor.setSize("100%","100%");
     editor.on("change", function(cm, change) {
             doc = editor.getDoc();
             gui_content_update();
@@ -238,6 +240,7 @@ function View() {
 }
 
 function SendScore() {
+	console.log('SendScore');
     $('#feedback').html('')
     var currFileID = window.location.search.split("?")[1].split('&')[0].split("=")[1];
     //console.log(currFileID);
@@ -253,7 +256,8 @@ function SendScore() {
             "FileID": currFileID,
             "FolderID": parseInt($('#folder_selection select').val()),
             "filename": document.getElementById("titleInput").value,
-            "content": document.getElementById("text-input").value,
+            //"content": document.getElementById("text-input").value,
+			"content":editor.getDoc().getValue(),
             "is_public": parseInt($('#is_public_id').val()),
             "is_draft": parseInt($('#is_draft_id').val()),
             "is_star": ($('#StarCheckbox').is(":checked") == true) ? 1 : 0,
@@ -308,7 +312,7 @@ function SendScore() {
 function Editor(input, preview) {
     this.update = function() {		
         preview.innerHTML = "";
-        content = input.value;
+        content = input.value;		
         [ListMdppObject, ListDiv] = mdpp2ListDiv(content);
 
         ListDiv2StaticDisplay(ListMdppObject, ListDiv, $('#preview'));

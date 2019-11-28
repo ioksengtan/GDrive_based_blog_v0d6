@@ -36,6 +36,7 @@
     <!-- custom theme -->
     <link rel="stylesheet" href="css/mdpp.css">
 	<link rel="stylesheet" href="css/codemirror.css">
+	<link rel="stylesheet" href="css/edit.css">
 </head>
 
 <body>
@@ -113,7 +114,8 @@
                     <option value=26>@list</option>                    
                 </select>
             </div>
-			<div>Workspace
+			<div><a href = "">Workspace</a></div>
+			<div id="workspace">
 				<div class="">resources:
 					<div class=""><a href="http://editor.method.ac/" target="__blank">海鮮炒烏龍:@menu</a></div>
 				</div>
@@ -131,7 +133,9 @@
                 <textarea class="AutoHeight form-control" id="text-input" oninput=this.editor.update() style="width:100%" rows="30">Type **Markdown** here.test
                 </textarea>
             </div>
-            <div class="w3-half" id="preview"> </div>            
+			<div class="w3-half">
+				<div class="w3-margin" id="preview"> </div>            
+			</div>
 
             <div id="diagram"></div>
         </div>

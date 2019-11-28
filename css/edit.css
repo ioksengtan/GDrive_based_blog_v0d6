@@ -36,3 +36,7 @@
 .system_msg{
   color:red;
 }
+
+#workspace {
+	display:none
+}
