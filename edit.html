@@ -103,24 +103,24 @@
             <div class="">                
                 <input type="text" class="w3-input" id="smallimage" placeholder="small image">
             </div>
-            <div class="">
-                <input id="StarCheckbox" type="checkbox" name="star" value="isStar"> Star
-                <br>
+            
+            <div class="">                
+				<select class="w3-select" id="utility_selection" style="width:15%">
+                    <option value=4>svg editor</option> <!-- http://editor.method.ac/ -->
+                    <option value=2>@flowchart</option>
+                    <option value=29>@u2b</option>
+                    <option value=3>@html</option>
+                    <option value=26>@list</option>                    
+                </select>
             </div>
-            <div class="">
-                <div class=""><a href="http://editor.method.ac/" target="__blank">svg editor</a></div>
-                <div class=""><a href="javascript:show_info('flowchart');">@flowchart</a></div>
-                <div class=""><a href="javascript:show_info('u2b');">@u2b</a></div>
-                <div class=""><a href="javascript:show_info('html');">@html</a></div>
-                <div class=""><a href="javascript:show_info('list');">@list</a></div>
-                </ul>
-            </div>
-            <div class="">resources:
-                <div class=""><a href="http://editor.method.ac/" target="__blank">海鮮炒烏龍:@menu</a></div>
-            </div>
-            <div class="">variables:
-                <div class=""><a href="http://editor.method.ac/" target="__blank">x</a></div>
-            </div>
+			<div>Workspace
+				<div class="">resources:
+					<div class=""><a href="http://editor.method.ac/" target="__blank">海鮮炒烏龍:@menu</a></div>
+				</div>
+				<div class="">variables:
+					<div class=""><a href="http://editor.method.ac/" target="__blank">x</a></div>
+				</div>
+			</div>
             <div class="">
                 <input type="button" class="btn btn-success" value="Update" onclick="SendScore()">
                 <input type="button" class="btn btn-success" value="Delete" onclick="Delete()">

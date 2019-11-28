@@ -80,7 +80,7 @@ function DynamicDisplay(ListMdppObject, ListDiv, id) {
 }
 //ListDiv2StaticDisplay(ListMdppObject, ListDiv, $('#preview'));
 function ListDiv2StaticDisplay(ListMdppObject, ListDiv, DivToShow) {
-
+	
     for (var i = 0; i < ListDiv.length; i++) {
 
         switch (ListMdppObject[i].property) {
@@ -297,6 +297,179 @@ function ListDiv2StaticDisplay(ListMdppObject, ListDiv, DivToShow) {
     }
 
 }
+
+//input: string input_content
+//output: [list_string ListMdppObject, ListDiv];
+function mdpp2ListDiv(input_content) {
+    variable_manager.clearVariables();
+    var ListDiv = [];
+    [preprocessed_content, parse_result, ListMdppObject] = html_preprocessing(input_content);
+							  
+													 
+ 
+    for (var i = 0; i < ListMdppObject.length; i++) {
+        switch (ListMdppObject[i].property) {
+            case "markdown_input": {
+                var html_results = markdown.toHTML(ListMdppObject[i].data);
+                ListDiv.push(html_results);
+                break;
+            }
+            case "html": {
+                ListDiv.push(ListMdppObject[i].data);
+                break;
+            }
+            case "u2b": {
+                ListDiv.push(ListMdppObject[i].data);
+                break;
+            }
+            case "pdf": {
+                var pdf_content = "<embed src= \"";
+                pdf_content += ListMdppObject[i].data;
+                pdf_content += "\" width= \"100%\" height=\"400\">";
+                ListDiv.push(pdf_content);
+                break;
+            }
+            case "ref": {
+                ListDiv.push(ListMdppObject[i].data);
+                break;
+            }
+            case "list": {
+                ListDiv.push(ListMdppObject[i].data);
+                break;
+            }
+            case "list_ref": {
+                ListDiv.push("");
+                break;
+            }
+            case "menu": {
+                ListDiv.push(ListMdppObject[i].data);
+                break;
+            }
+            case "ls": {
+                //console.log(ListMdppObject[i].data);
+
+                var ls_content = "[system message] syntax: ls [type]  : show all resources with specific type.<br/>"
+                ls_content += "loading...<br/>"
+                ls_content += ListMdppObject[i].data;
+                ls_content += "<br/>"
+                ListDiv.push(ls_content);
+                break;
+            }
+            case "ls_export": {
+                //console.log(ListMdppObject[i].data);
+                ListDiv.push("");
+                break;
+            }
+            case "mp3": {
+                //console.log('image');
+                //var image_content = "<img src=\"https://drive.google.com/uc?export=view&id=";
+
+                //var mp3_content = "<audio controls><source src=\"https://drive.google.com/uc?export=view&id=";
+                var mp3_content = "<audio controls><source src=\"";
+                //var tmp_length_array = ListMdppObject[i].data.split("=").length;
+                mp3_content += ListMdppObject[i].data;
+                mp3_content += "\"  type=\"audio/ogg\">";
+                mp3_content += "</audio>"
+                //mp3_content += "<audio controls><source src=\"https://drive.google.com/uc?export=view&id=";
+                var mp3_content = "<audio controls><source src=\"";
+                var tmp_length_array = ListMdppObject[i].data.split("=").length;
+                //mp3_content += ListMdppObject[i].data.split("=")[tmp_length_array - 1];
+                mp3_content += ListMdppObject[i].data;
+                mp3_content += "\"  type=\"audio/mpeg\">";
+                mp3_content += "</audio>"
+                ListDiv.push(mp3_content);
+                break;
+            }
+            case "image": {
+                //console.log('image');
+                //var image_content = "<img src=\"https://drive.google.com/uc?export=view&id=";
+
+                var image_content = "<img class=\"rotation\" src=\"https://drive.google.com/uc?export=view&id=";
+                var tmp_length_array = ListMdppObject[i].data.split("=").length;
+                image_content += ListMdppObject[i].data.split("=")[tmp_length_array - 1];
+                image_content += "\">";
+                ListDiv.push(image_content);
+                break;
+            }
+            case "image_rotation": {
+                console.log(ListMdppObject[i].data);
+                //var image_content = "<img src=\"https://drive.google.com/uc?export=view&id=";
+                var rotation_degrees = ListMdppObject[i].data.split(' ')[1];
+                var image_content = "<img class=\"rotation" + rotation_degrees + "\" src=\"https://drive.google.com/uc?export=view&id=";
+                var tmp_length_array = ListMdppObject[i].data.split(' ')[0].split("=").length;
+                image_content += ListMdppObject[i].data.split(' ')[0].split("=")[tmp_length_array - 1];
+                image_content += "\">";
+
+                //console.log(rotation_degrees);
+                //console.log(image_content);
+                ListDiv.push(image_content);
+                break;
+            }
+            case "flowchart": {
+                var tmp = ListMdppObject[i].data;
+                var diagram = flowchart.parse(tmp);
+                $('#diagram').html('');
+                //diagram.drawSVG('diagram');
+
+                ListDiv.push($('#diagram').html());
+                break;
+            }
+            case "plot": {
+                var plot_content = "";
+                plot_content += "@plot\n"
+                plot_content += ListMdppObject[i].data;
+                ListDiv.push(plot_content);
+                break;
+            }
+            case "set": {
+                var set_content = "";
+                set_content += "@set\n"
+                set_content += ListMdppObject[i].data;
+                ListDiv.push(set_content);
+                break;
+            }
+            case "jog": {
+                var jog_content = "";
+                jog_content += "@jog\n"
+                jog_content += ListMdppObject[i].data;
+                ListDiv.push(jog_content);
+                break;
+            }
+            case "print": {
+                var print_content = "";
+                print_content += "@print\n"
+                print_content += ListMdppObject[i].data;
+                ListDiv.push(print_content);
+                break;
+            }
+            case "whos": {
+                var whos_content = "";
+                whos_content += "@whos\n"
+                whos_content += ListMdppObject[i].data;
+                ListDiv.push(whos_content);
+                break;
+            }
+            case "ui_slidebar": {
+                var ui_slidebar_content = "";
+                ui_slidebar_content += "@ui_slidebar\n"
+                ui_slidebar_content += ListMdppObject[i].data;
+                ListDiv.push(ui_slidebar_content);
+                break;
+            }
+            case "marked": {
+                var marked_content = "";
+                //marked_content+= ListMdppObject[i].data;
+                ListDiv.push(marked_content);
+                break;
+            }
+        }
+    }
+    return [ListMdppObject, ListDiv];
+
+}
+
+
+/*
 //input: string input_content
 //output: [list_string ListMdppObject, ListDiv];
 function mdpp2ListDiv(input_content) {
@@ -466,7 +639,7 @@ function mdpp2ListDiv(input_content) {
     return [ListMdppObject, ListDiv];
 
 }
-
+*/
 
 function string2html(string_input) {
     var html_output = "";
@@ -542,7 +715,7 @@ function str_mdpp2list_mdpp_object(str_mdpp) {
 	var list_mdpp_object = [];
 	list_mdpp_statement = str_mdpp.split('\n');
 	for( each_mdpp_statement in list_mdpp_statement){		
-		console.log(list_mdpp_statement[each_mdpp_statement]);
+		//console.log(list_mdpp_statement[each_mdpp_statement]);
 		state = 'markdown';
 		for ( each_pattern in dict_mdpp_pattern) {				
 			if ( dict_mdpp_pattern[each_pattern].test(list_mdpp_statement[each_mdpp_statement])) {
