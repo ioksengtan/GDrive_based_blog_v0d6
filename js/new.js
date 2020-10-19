@@ -75,7 +75,7 @@ function SendScore() {
         }
         //var FolderID = window.location.search.split("?")[1].split('&')[1].split("=")[1];
         var FolderID = parseInt($('#folder_selection select').val());
-        console.log(uid);
+        //console.log(uid);
         //console.log(FolderID);
         $.post(appFiles, {
                 "command": "blog_new",
