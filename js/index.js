@@ -106,61 +106,24 @@ var pwd = function(input) {
         hh.shift();
     }
 }
+
 var var2content3 = function(course_name, course_id, course_icon) {
     var tmp_text = "";
-    tmp_text += "<div class=\"w3-container w3-margin-bottom\">";
-    if (course_icon) {
-        tmp_text += "<div class=\"w3-row-padding\">";
-        tmp_text += "<a href=\"index.html?FileID=";
-        tmp_text += course_id;
-        //tmp_text+="blog.html?CourseID="+course_id;
-        tmp_text += "\"";
-        tmp_text += "		class=\"image\">";
-        tmp_text += course_name;
-        tmp_text += "</a></b></p></div>"
-
-        tmp_text += "<div class=\"w3-row-padding\">"
-        tmp_text += "<div class=\"w3-third w3-col\">";
-        //var tmp_text = "<div class=\"w3-third w3-container w3-margin-bottom\">";
-        tmp_text += "<img src=\"";
-        tmp_text += course_icon;
-        tmp_text += "\
-      \" alt=\"";
-        tmp_text += course_name;
-        tmp_text += "\" style=\"width:100%\" class=\"w3-hover-opacity\"></div>";
-
-        tmp_text += "<div class=\"w3-twothird w3-col\"><p><b>";
-        //tmp_text+="<a href=\"javascript:load_content(";
-        tmp_text += "<a href=\"index.html?FileID=";
-        tmp_text += course_id;
-        //tmp_text+="blog.html?CourseID="+course_id;
-        tmp_text += "\"";
-        tmp_text += "		class=\"image\">";
-        tmp_text += course_name;
-        tmp_text += "</a></b></p></div></div>"
-    } else {
-        tmp_text += "<div class=\"w3-row-padding\">";
-        tmp_text += "<a href=\"index.html?FileID=";
-        tmp_text += course_id;
-        //tmp_text+="blog.html?CourseID="+course_id;
-        tmp_text += "\"";
-        tmp_text += "		class=\"image\">";
-        tmp_text += course_name;
-        tmp_text += "</a></b></p></div>"
-        tmp_text += "<div class=\"w3-row-padding\">"
-        tmp_text += "<div class=\"w3-twothird w3-col\"><p><b>";
-        //tmp_text+="<a href=\"javascript:load_content(";
-        tmp_text += "<a href=\"index.html?FileID=";
-        tmp_text += course_id;
-        //tmp_text+="blog.html?CourseID="+course_id;
-        tmp_text += "\"";
-        tmp_text += "		class=\"image\">";
-        tmp_text += course_name;
-        tmp_text += "</a></b></p></div></div>"
-    }
+    tmp_text += "<div class=\"row\">";
+	
+	tmp_text += "<div class=\"col-2\">";
+	tmp_text += "<img src=\"";
+	tmp_text += course_icon;
+	tmp_text += "\"  width=\"95%\">"
+	tmp_text += "</div>"
+	tmp_text += "<div class=\"col-10\">"
+	tmp_text += "<h2>"
+	tmp_text += course_name
+	tmp_text += "</h2>"
+	
     tmp_text += "</div>";
-
-
+	tmp_text += "</div>";
+	console.log(tmp_text);
     return tmp_text;
 
 }
