@@ -86,7 +86,7 @@ function ListDiv2StaticDisplay(ListMdppObject, ListDiv, DivToShow) {
         switch (ListMdppObject[i].property) {
             case "markdown_input": {
                 var tmp_html_content = "";
-                tmp_html_content += '<div id="div' + i + '">'
+                tmp_html_content += '<div contenteditable="true" id="div' + i + '">'
                 tmp_html_content += ListDiv[i];
                 tmp_html_content += '</div>'
                 DivToShow.append(tmp_html_content);
@@ -118,7 +118,7 @@ function ListDiv2StaticDisplay(ListMdppObject, ListDiv, DivToShow) {
             }
             case "image": {
                 var tmp_html_content = "";
-                tmp_html_content += '<div id="div' + i + '">'
+                tmp_html_content += '<div class="resize-drag" id="div' + i + '">'
                 tmp_html_content += ListDiv[i];
                 tmp_html_content += '</div>'
                 DivToShow.append(tmp_html_content);
